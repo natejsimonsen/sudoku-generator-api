@@ -235,8 +235,7 @@ const solveBlockRowsAndColumns = (blockIndexes) => {
   return blocks;
 };
 
-const removeSudokuNumbers = (sudokuNumbers) => {
-  const percentToRemove = 20;
+const removeSudokuNumbers = (sudokuNumbers, percentToRemove) => {
   const newSudokuNumbers = sudokuNumbers.map((block) => {
     return block.map((row) => {
       return row.map((cell) => {
@@ -249,7 +248,7 @@ const removeSudokuNumbers = (sudokuNumbers) => {
   return newSudokuNumbers;
 };
 
-const init = () => {
+const init = (difficulty) => {
   while (true) {
     makeBlockRowsAndColumns(0);
     makeBlockRowsAndColumns(4);
@@ -259,7 +258,7 @@ const init = () => {
     if (arr.length > 0) {
       return {
         complete: sudokuGrid,
-        puzzle: removeSudokuNumbers(sudokuGrid),
+        puzzle: removeSudokuNumbers(sudokuGrid, difficulty),
       };
     }
   }
