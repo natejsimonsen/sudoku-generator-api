@@ -6,9 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.get("/", (req, res) =>
-  res.send(JSON.stringify(init(req.query.difficulty)))
-);
+app.get("/", (req, res) => res.json(init(req.query.difficulty)));
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
