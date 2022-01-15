@@ -81,12 +81,8 @@ const generateGrid = () => {
       const row = Math.floor(i / 9);
       const col = Math.floor(i % 9);
       if (row % 3 === 0 && col % 3 === 0) {
-        const newBlock = [];
         const { block } = getSudokuVars(i, grid);
-        newBlock.push(block.slice(0, 3));
-        newBlock.push(block.slice(3, 6));
-        newBlock.push(block.slice(6, 9));
-        newGrid.push(newBlock);
+        newGrid.push(block);
       }
     });
 
@@ -99,12 +95,10 @@ const generateGrid = () => {
 
 const removeSudokuNumbers = (sudokuNumbers, percentToRemove) => {
   const newSudokuNumbers = sudokuNumbers.map((block) => {
-    return block.map((row) => {
-      return row.map((cell) => {
-        const randomNum = Math.random();
-        if (randomNum > percentToRemove / 100) return cell;
-        return 0;
-      });
+    return block.map((cell) => {
+      const randomNum = Math.random();
+      if (randomNum > percentToRemove / 100) return cell;
+      return 0;
     });
   });
   return newSudokuNumbers;
@@ -112,10 +106,13 @@ const removeSudokuNumbers = (sudokuNumbers, percentToRemove) => {
 
 const init = (difficulty) => {
   const grid = generateGrid();
+  console.log(removeSudokuNumbers(grid, 20));
   return {
     complete: grid,
     puzzle: removeSudokuNumbers(grid, difficulty),
   };
 };
+
+init();
 
 module.exports = init;
